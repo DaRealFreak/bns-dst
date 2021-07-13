@@ -2,6 +2,29 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
+class Timings
+{
+    ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
+    BossOnePhaseJump()
+    {
+        ; 3 is the default value if you open with double kd and you can push it to 90% in the kd duration
+        return 3
+    }
+
+    BossTwoKnockdown()
+    {
+        ; if you start with double kd the knockdown will come after 8.5 seconds
+        return 8.5
+    }
+
+    BossTwoSpin()
+    {
+        ; if you start with double kd the spin will happen after 16 seconds
+        return 16
+    }
+
+}
+
 class Combat
 {
     ; if you can prestack something like lux, sunsparks or whatever you can do so here, bm can't, so just an example how you can duplicate funcionality

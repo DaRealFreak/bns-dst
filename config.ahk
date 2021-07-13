@@ -56,24 +56,3 @@ class Configuration
         return 3/1
     }
 }
-
-class Timings
-{
-    ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
-    BossOnePhaseJump()
-    {
-        ; 3 is the default value if you open with double kd and you can push it to 90% in the kd duration
-        return 3
-    }
-
-    BossTwoKnockdown()
-    {
-        return 8.5
-    }
-
-    BossTwoSpin()
-    {
-        return 16
-    }
-
-}
