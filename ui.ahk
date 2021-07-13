@@ -68,6 +68,12 @@ class UserInterface
         return Utility.GetColor(254,1060) == "0x0077FF"
     }
 
+    ; check for ss availability for faster entry/exit
+    IsSSAvailable()
+    {
+        return Utility.GetColor(682,961) == "0x875049"
+    }
+
     ; check for talisman cooldown border, basically only needed if you have to wait for your long soul
     IsTalismanAvailable()
     {
