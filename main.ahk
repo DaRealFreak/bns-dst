@@ -124,13 +124,12 @@ class DreamSongTheater
         ; speed it up and walk on the right height
         Configuration.ActivateCheatEngine()
         sleep 11.55 * 1000 / Configuration.CheatEngineSpeed()
-        Configuration.DeactivateCheatEngine()
 
+        ; stop walking forwards
         send {ShiftUp}
         send {w up}
 
         ; move left to the mini boss
-        Configuration.ActivateCheatEngine()
         send {a down}
         sleep 8.07 * 1000 / Configuration.CheatEngineSpeed()
         send {a up}
