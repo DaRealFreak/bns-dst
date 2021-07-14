@@ -4,6 +4,11 @@ SetWorkingDir, %A_ScriptDir%
 
 class Timings
 {
+    PossibleAnimationLocks()
+    {
+        return 0.5
+    }
+
     ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
     BossOnePhaseJump()
     {
@@ -22,7 +27,6 @@ class Timings
         ; if you start with double kd the spin will happen after 16 seconds
         return 16
     }
-
 }
 
 class Combat
@@ -148,5 +152,4 @@ class Combat
         send f
         sleep 5
     }
-
 }

@@ -1,4 +1,4 @@
-﻿SetKeyDelay, -1, -1
+SetKeyDelay, -1, -1
 SetWinDelay, -1
 
 #Include %A_ScriptDir%\lib\utility.ahk
@@ -397,13 +397,13 @@ class DreamSongTheater
     LootBoss()
     {
         ; wait 1 second for ongoing animation locks
-        sleep 1*1000
+        sleep Timings.PossibleAnimationLocks() * 1000
 
         log.addLogEntry("$time: looting boss")
 
         ; walk a bit forward since loot can be out of reach
         send {w down}
-        sleep 0.3*1000
+        sleep 0.3 * 1000
         send {w up}
         sleep 150
 
