@@ -86,7 +86,7 @@ class DreamSongTheater
         ; walk backwards until we're in the loading screen
         while (!UserInterface.IsInLoadingScreen()) {
             ; if we're walking backwards in/out of the dugneon add ss skill to be faster than slow walking
-            if (!(Configuration.IsRunningOverCrossServer() && useAsExitDungeon) && UserInterface.IsSSAvailable()) {
+            if (!Configuration.IsRunningOverCrossServer() && UserInterface.IsSSAvailable()) {
                 send ss
                 sleep 5
                 send {s down}
