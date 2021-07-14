@@ -204,6 +204,8 @@ class DreamSongTheater
 
         ; in case we didn't get out of combat yet
         sleep 4*1000
+        send {ShiftUp}
+        send {w up}
 
         ; jump on the platform
         send {w down}
@@ -474,8 +476,15 @@ class DreamSongTheater
                 send {a up}
                 ; revive and waaait
                 send 4
-                ; since we don't wait for talisman for 2nd boss we have to wait until long soul/starstrike is up again
-                sleep 45*1000
+
+                ; since we don't wait for talisman for 2nd boss we wait for long/short soul
+                if (Configuration.WaitForLongSoul()) {
+                    ; long soul duration
+                    sleep 45*1000
+                } else {
+                    ; short soul duration
+                    sleep 18*1000
+                }
 
                 return DreamSongTheater.MoveSecondBoss()
             }
@@ -511,6 +520,8 @@ class DreamSongTheater
             sleep 5
             send y
             sleep 5
+            ; sleep 2.1 seconds in case there is any skill on f which is overwriting the exit portal
+            sleep 2.1*1000/Configuration.CheatEngineSpeed()
         }
         Configuration.DeactivateCheatEngine()
 
