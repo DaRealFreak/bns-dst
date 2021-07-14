@@ -4,6 +4,7 @@ SetWorkingDir, %A_ScriptDir%
 
 class Timings
 {
+    ; bm doesn't really have animation locks but other classes may have some we should wait for before we try looting the boss
     PossibleAnimationLocks()
     {
         return 0.5
