@@ -25,5 +25,19 @@ If you don't play with the `WaitForLongSoul` option you can ignore it though.
 Here you can simply include the class you want to play. If the class is not implemented yet feel free to create the configuration for your class and create a pull request.
 This includes things like double cc, iframe/block timings and general auto combat configurations. No UI configurated stuff is recommended here, since the use should be for every user.
 
+### [hotkeys.ahk](hotkey.ahk)
+If you want to change the macro hotkeys for the functionality you're free to do here.
+
+## Usage
+The default hotkeys for the macro are:
+| Key | Description |
+| --- | ----------- |
+| F1 | Color Check at current mouse position |
+| Numpad 0 | Start the farm macro |
+| Numpad Delete | Reload the farm macro |
+| Numpad Enter | Fully close the farm macro |
+
+As mentioned above you can change those hotkeys in the [hotkeys.ahk](hotkeys.ahk)
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
