@@ -198,7 +198,7 @@ class DreamSongTheater
         send {w down}
         send {ShiftDown}
         Configuration.ActivateCheatEngine()
-        sleep 12 * 1000 / Configuration.CheatEngineSpeed()
+        sleep Configuration.RunTimeToBossOne() * 1000 / Configuration.CheatEngineSpeed()
         Configuration.DeactivateCheatEngine()
 
         ; in case we didn't get out of combat yet

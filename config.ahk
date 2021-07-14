@@ -55,4 +55,10 @@ class Configuration
     {
         return 3/1
     }
+
+    ; depending on the kill time of the mini boss and stuck in combat state option to increase/decrease the time running towards the platform of boss one
+    RunTimeToBossOne()
+    {
+        return 12
+    }
 }
