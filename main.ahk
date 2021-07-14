@@ -85,6 +85,20 @@ class DreamSongTheater
 
         ; walk backwards until we're in the loading screen
         while (!UserInterface.IsInLoadingScreen()) {
+            ; user died while entering dungeon, probably died on the mini boss somehow
+            if (UserInterface.IsReviveVisible()) {
+                log.addLogEntry("$time: died while entering dungeon, reviving and retrying")
+                ; quit walking
+                send {ShiftUp}
+                send {s up}
+                send {w up}
+                ; revive
+                send 4
+                sleep 5 * 1000
+
+                return DreamSongTheater.EnterDungeon(notAbusedModeKek)
+            }
+
             ; if we're walking backwards in/out of the dugneon add ss skill to be faster than slow walking
             if (!Configuration.IsRunningOverCrossServer() && UserInterface.IsSSAvailable()) {
                 send ss
