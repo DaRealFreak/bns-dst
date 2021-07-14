@@ -1,4 +1,4 @@
-SetKeyDelay, -1, -1
+﻿SetKeyDelay, -1, -1
 SetWinDelay, -1
 
 #Include %A_ScriptDir%\lib\utility.ahk
@@ -22,7 +22,7 @@ class DreamSongTheater
 
         ; open escape menu and wait half a second until it appeared
         send {Esc}
-        sleep 0.5*1000
+        sleep 0.5 * 1000
 
         ; click on escape
         if (Configuration.IsRunningOverCrossServer()) {
@@ -32,7 +32,7 @@ class DreamSongTheater
         }
 
         ; get out of possible combat
-        sleep 10*1000
+        sleep 10 * 1000
     }
 
     ; function we can call when we expect a loading screen and want to wait until the loading screen is over
@@ -123,7 +123,7 @@ class DreamSongTheater
 
         ; speed it up and walk on the right height
         Configuration.ActivateCheatEngine()
-        sleep 11.55*1000/Configuration.CheatEngineSpeed()
+        sleep 11.55 * 1000 / Configuration.CheatEngineSpeed()
         Configuration.DeactivateCheatEngine()
 
         send {ShiftUp}
@@ -132,7 +132,7 @@ class DreamSongTheater
         ; move left to the mini boss
         Configuration.ActivateCheatEngine()
         send {a down}
-        sleep 8.07*1000/Configuration.CheatEngineSpeed()
+        sleep 8.07 * 1000 / Configuration.CheatEngineSpeed()
         send {a up}
         Configuration.DeactivateCheatEngine()
 
@@ -153,7 +153,7 @@ class DreamSongTheater
         Combat.ApproachMiniBoss()
 
         start := A_TickCount
-        while (A_TickCount < start + 18*1000) {
+        while (A_TickCount < start + 18 * 1000) {
             ; if the target skill is greyed out the miniboss is dead
             if (UserInterface.IsTargetSkillUnavailable()) {
                 log.addLogEntry("$time: target skill is greyed out, breaking combat")
@@ -161,7 +161,7 @@ class DreamSongTheater
             }
 
             ; start including an iframe 4.5 seconds into the fight to iframe the 3 hit knockback
-            if (A_TickCount > start + 4.5*1000) {
+            if (A_TickCount > start + 4.5 * 1000) {
                 Combat.IframeMiniBoss()
             }
 
@@ -199,11 +199,11 @@ class DreamSongTheater
         send {w down}
         send {ShiftDown}
         Configuration.ActivateCheatEngine()
-        sleep 12*1000/Configuration.CheatEngineSpeed()
+        sleep 12 * 1000 / Configuration.CheatEngineSpeed()
         Configuration.DeactivateCheatEngine()
 
         ; in case we didn't get out of combat yet
-        sleep 4*1000
+        sleep 4 * 1000
         send {ShiftUp}
         send {w up}
 
@@ -212,14 +212,14 @@ class DreamSongTheater
         send {ShiftDown}
 
         ; wait until we're running before jumping
-        sleep 0.5*1000
+        sleep 0.5 * 1000
         send {space}
 
         start := A_TickCount
         while (!UserInterface.IsEnemyHealthbarVisible())
         {
             ; probably didn't even attack mini boss, happens if speedhack is too fast
-            if (A_TickCount > start + 20*1000) {
+            if (A_TickCount > start + 20 * 1000) {
                 log.addLogEntry("$time: moving to first boss took longer than expected, escaping")
                 ; quit walking
                 send {ShiftUp}
@@ -242,7 +242,7 @@ class DreamSongTheater
                 ; revive
                 send 4
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
-                sleep 5*1000
+                sleep 5 * 1000
 
                 ; exit dungeon by walking backwards (same as entering the dungeon)
                 DreamSongTheater.EnterDungeon(false)
@@ -315,7 +315,7 @@ class DreamSongTheater
 
                 ; revive and wait for the animation
                 send 4
-                sleep 5*1000
+                sleep 5 * 1000
 
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
                 DreamSongTheater.EnterDungeon(false)
@@ -326,7 +326,7 @@ class DreamSongTheater
             sleep 5
         }
 
-        if (A_TickCount < start + 1*1000) {
+        if (A_TickCount < start + 1 * 1000) {
             ; target skill is greyed out for a short amount of time and we still see the boss healthbar, so script thinks we're instantly at the second boss
             log.addLogEntry("$time: walking to the second boss took an unexpected amount of time, we probably got range checked by the first boss, reentering dungeon")
 
@@ -341,7 +341,7 @@ class DreamSongTheater
             ; revive
             send 4
             ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
-            sleep 5*1000
+            sleep 5 * 1000
 
             ; exit dungeon by walking backwards (same as entering the dungeon)
             DreamSongTheater.EnterDungeon(false)
@@ -365,7 +365,7 @@ class DreamSongTheater
         Combat.ApproachBoss()
 
         start := A_TickCount
-        while (A_TickCount < start + 20*1000) {
+        while (A_TickCount < start + 20 * 1000) {
             ; if the target skill is greyed out boss 2 should be dead
             if (UserInterface.IsTargetSkillUnavailable()) {
                 log.addLogEntry("$time: target skill is greyed out, breaking combat")
@@ -451,7 +451,7 @@ class DreamSongTheater
         log.addLogEntry("$time: repairing weapon")
 
         Configuration.UseRepairTools()
-        sleep 4*1000
+        sleep 4 * 1000
     }
 
     ; exit the dungeon from our loot location
@@ -480,10 +480,10 @@ class DreamSongTheater
                 ; since we don't wait for talisman for 2nd boss we wait for long/short soul
                 if (Configuration.WaitForLongSoul()) {
                     ; long soul duration
-                    sleep 45*1000
+                    sleep 45 * 1000
                 } else {
                     ; short soul duration
-                    sleep 18*1000
+                    sleep 18 * 1000
                 }
 
                 return DreamSongTheater.MoveSecondBoss()
@@ -495,7 +495,7 @@ class DreamSongTheater
             }
 
             ; no idea when this normally happens
-            if (A_TickCount > start + 20*1000) {
+            if (A_TickCount > start + 20 * 1000) {
                 log.addLogEntry("$time: exiting dungeon took longer than expected, escaping")
                 ; quit walking
                 send {w up}
@@ -521,7 +521,7 @@ class DreamSongTheater
             send y
             sleep 5
             ; sleep 2.1 seconds in case there is any skill on f which is overwriting the exit portal
-            sleep 2.1*1000/Configuration.CheatEngineSpeed()
+            sleep 2.1 * 1000 / Configuration.CheatEngineSpeed()
         }
         Configuration.DeactivateCheatEngine()
 
