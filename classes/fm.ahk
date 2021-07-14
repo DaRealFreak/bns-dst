@@ -64,6 +64,8 @@ class Combat
         sleep 5
         send z
         sleep 5
+        send f
+        sleep 5
     }
 
     ; bm can cover the 3 hit knockback with hmb already, bubble iframe would be perfect, non bubble iframe can be forced with full duration with sleep
