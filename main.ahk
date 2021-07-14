@@ -131,7 +131,7 @@ class DreamSongTheater
 
         ; move left to the mini boss
         send {a down}
-        sleep 8.07 * 1000 / Configuration.CheatEngineSpeed()
+        sleep 8.05 * 1000 / Configuration.CheatEngineSpeed()
         send {a up}
         Configuration.DeactivateCheatEngine()
 
@@ -457,6 +457,9 @@ class DreamSongTheater
     ExitDungeon(escaped := false)
     {
         log.addLogEntry("$time: exiting dungeon")
+
+        ; safety deactivation of cheat engine
+        Configuration.DeactivateCheatEngine()
 
         if (!escaped) {
             send {a down}
