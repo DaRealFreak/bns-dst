@@ -106,11 +106,11 @@ class Combat
         sleep 500
 
         ; make sure to start with spirit vortex
-        send v
+        send {tab}
         sleep 350
 
         ; go into flock stance
-        send {tab}
+        send v
         sleep 150
     }
 
