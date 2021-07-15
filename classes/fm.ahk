@@ -26,6 +26,9 @@ class Timings
     }
 }
 
+/*
+combat for forcemasters, disable storm warp
+*/
 class Combat
 {
     ; if you can prestack something like lux, sunsparks or whatever you can do so here, bm can't, so just an example how you can duplicate funcionality
@@ -45,6 +48,19 @@ class Combat
         send r
         sleep 1*1000
 
+        send c
+        sleep 250
+
+        ; trigger bracelet
+        send f
+        sleep 250
+
+        send x
+        sleep 150
+
+        send z
+        sleep 150
+
         ; enter godmode
         send r
     }
@@ -54,15 +70,15 @@ class Combat
     {
         send 2
         sleep 5
+        send r
+        sleep 5
         send t
         sleep 5
         send 4
         sleep 5
-        send c
+        send v
         sleep 5
         send x
-        sleep 5
-        send z
         sleep 5
         send f
         sleep 5
@@ -86,7 +102,7 @@ class Combat
     {
         loop, 4 {
             send r
-            sleep 1*1000
+            sleep 1.2*1000
         }
     }
 
@@ -94,14 +110,30 @@ class Combat
     ApproachBoss()
     {
         sleep 50
+
+        ; approach the boss
         send q
-        sleep 400
+        sleep 350
+
         send e
         sleep 150
 
         ; enter overcharge
         send r
-        sleep 1*1000
+        sleep 500
+
+        send c
+        sleep 250
+
+        ; trigger bracelet
+        send f
+        sleep 250
+
+        send x
+        sleep 150
+
+        send z
+        sleep 150
 
         ; enter godmode
         send r
@@ -116,7 +148,7 @@ class Combat
     Iframe()
     {
         send {tab}
-        sleep 1000
+        sleep 1.5*1000
         send {tab}
     }
 
