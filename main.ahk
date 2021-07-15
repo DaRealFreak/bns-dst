@@ -548,8 +548,6 @@ class DreamSongTheater
         while (!UserInterface.IsInLoadingScreen()) {
             send f
             sleep 5
-            send y
-            sleep 5
             ; sleep 2.1 seconds in case there is any skill on f which is overwriting the exit portal
             sleep 2.1 * 1000 / Configuration.CheatEngineSpeed()
         }
