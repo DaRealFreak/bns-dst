@@ -212,7 +212,7 @@ class DreamSongTheater
     {
         log.addLogEntry("$time: wait for talisman")
 
-        while (!Availability.IsTalismanAvailable()) {
+        while (!UserInterface.IsTalismanAvailable()) {
             sleep 5
         }
     }
@@ -430,7 +430,7 @@ class DreamSongTheater
 
         ; walk a bit forward since loot can be out of reach
         send {w down}
-        sleep 0.3 * 1000
+        Timings.WalkToLoot() * 1000
         send {w up}
         sleep 150
 

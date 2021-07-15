@@ -9,6 +9,11 @@ class Timings
         return 7
     }
 
+    WalkToLoot()
+    {
+        return 0.4
+    }
+
     BossOnePhaseJump()
     {
         ; we are in godmode, so we don't care about the jump

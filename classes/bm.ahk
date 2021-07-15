@@ -10,6 +10,12 @@ class Timings
         return 0.5
     }
 
+    ; time to reach loot, only really needed for range classes who have no approach skill and could be 
+    WalkToLoot()
+    {
+        return 0.3
+    }
+
     ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
     BossOnePhaseJump()
     {
