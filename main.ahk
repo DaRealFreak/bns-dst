@@ -84,8 +84,21 @@ class DreamSongTheater
             send {s down}
         }
 
+        start := A_TickCount
         ; walk backwards until we're in the loading screen
         while (!UserInterface.IsInLoadingScreen()) {
+            ; we took more than 10 seconds to escape the dungeon, escape was most likely on cooldown
+            if (A_TickCount > start + 10*1000) {
+                ; send y to make sure the cd message disappeared
+                send y
+                ; sleep 10 minutes before trying again
+                sleep 10*60*1000
+                DreamSongTheater.EscapeDungeon()
+                sleep 5*1000
+
+                return DreamSongTheater.EnterDungeon(notAbusedModeKek)
+            }
+
             ; user died while entering dungeon, probably died on the mini boss somehow
             if (UserInterface.IsReviveVisible()) {
                 log.addLogEntry("$time: died while entering dungeon, reviving and retrying")
