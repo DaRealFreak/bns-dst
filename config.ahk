@@ -20,6 +20,12 @@ class Configuration
         return true
     }
 
+    ; should the character even use buff food
+    ShouldUseBuffFood()
+    {
+        return false
+    }
+
     ; hotkey where the buff food is placed, leave function empty if you don't want to take any buff food
     UseBuffFood()
     {

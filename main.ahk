@@ -57,6 +57,10 @@ class DreamSongTheater
     ; simply check for the buff food and use 
     CheckBuffFood()
     {
+        if (!Configuration.ShouldUseBuffFood()) {
+            return false
+        }
+
         log.addLogEntry("$time: checking buff food")
 
         ; check if buff food icon is visible
