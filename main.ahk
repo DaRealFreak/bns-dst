@@ -112,13 +112,13 @@ class DreamSongTheater
                 send {w up}
                 ; revive
                 send 4
-                sleep 5 * 1000
+                sleep 7 * 1000
 
                 return DreamSongTheater.EnterDungeon(notAbusedModeKek)
             }
 
             ; if we're walking backwards in/out of the dugneon add ss skill to be faster than slow walking
-            if (!Configuration.IsRunningOverCrossServer() && UserInterface.IsSSAvailable()) {
+            if ((!Configuration.IsRunningOverCrossServer() || !notAbusedModeKek) && UserInterface.IsSSAvailable()) {
                 send ss
                 sleep 5
                 send {s down}
@@ -273,7 +273,7 @@ class DreamSongTheater
                 ; revive
                 send 4
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
-                sleep 5 * 1000
+                sleep 7 * 1000
 
                 ; exit dungeon by walking backwards (same as entering the dungeon)
                 DreamSongTheater.EnterDungeon(false)
@@ -346,7 +346,7 @@ class DreamSongTheater
 
                 ; revive and wait for the animation
                 send 4
-                sleep 5 * 1000
+                sleep 7 * 1000
 
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
                 DreamSongTheater.EnterDungeon(false)
@@ -372,7 +372,7 @@ class DreamSongTheater
             ; revive
             send 4
             ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
-            sleep 5 * 1000
+            sleep 7 * 1000
 
             ; exit dungeon by walking backwards (same as entering the dungeon)
             DreamSongTheater.EnterDungeon(false)
