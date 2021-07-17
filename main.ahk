@@ -434,7 +434,7 @@ class DreamSongTheater
 
         ; walk a bit forward since loot can be out of reach
         send {w down}
-        Timings.WalkToLoot() * 1000
+        sleep Timings.WalkToLoot() * 1000
         send {w up}
         sleep 150
 
@@ -551,6 +551,8 @@ class DreamSongTheater
         Configuration.ActivateCheatEngine()
         while (!UserInterface.IsInLoadingScreen()) {
             send f
+            sleep 5
+            send y
             sleep 5
             ; sleep 2.1 seconds in case there is any skill on f which is overwriting the exit portal
             sleep 2.1 * 1000 / Configuration.CheatEngineSpeed()
