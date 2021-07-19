@@ -482,7 +482,7 @@ class DreamSongTheater
         log.addLogEntry("$time: repairing weapon")
 
         Configuration.UseRepairTools()
-        sleep 4 * 1000
+        sleep 5.1 * 1000
     }
 
     ; exit the dungeon from our loot location
