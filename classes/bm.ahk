@@ -26,7 +26,7 @@ class Timings
     BossTwoKnockdown()
     {
         ; if you start with double kd the knockdown will come after 8.5 seconds
-        return 8.5
+        return 9.5
     }
 
     BossTwoSpin()
@@ -104,7 +104,7 @@ class Combat
 
         ; use hmb and autoblock for engagement if available
         send 1
-        sleep 250
+        sleep 450
 
         ; use e dash
         send e
