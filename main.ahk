@@ -473,7 +473,7 @@ class DreamSongTheater
         ; delay end fight here so have a better uptime of f.e. movement speed buffs
         Combat.EndFight()
 
-        return DreamSongTheater.ExitDungeon(true)
+        return DreamSongTheater.ExitDungeon()
     }
 
     ; repair the weapon
@@ -486,18 +486,14 @@ class DreamSongTheater
     }
 
     ; exit the dungeon from our loot location
-    ExitDungeon(escaped := false)
+    ExitDungeon()
     {
         log.addLogEntry("$time: exiting dungeon")
 
         ; safety deactivation of cheat engine
         Configuration.DeactivateCheatEngine()
 
-        if (!escaped) {
-            send {a down}
-        } else {
-            send {w down}
-        }
+        send {w down}
 
         start := A_TickCount
         while (true) {
