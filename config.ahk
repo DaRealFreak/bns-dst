@@ -41,7 +41,7 @@ class Configuration
     ; after how many runs should we repair our weapon
     UseRepairToolsAfterRunCount()
     {
-        return 10
+        return 7
     }
 
     ; hotkey for activating cheat engine/speed hack
