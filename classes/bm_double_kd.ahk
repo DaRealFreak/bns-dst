@@ -98,14 +98,6 @@ class Combat
     ; both bosses can't be range tanked, approach them here
     ApproachBoss()
     {
-        ; go into flock stance
-        send {tab}
-        sleep 350
-
-        ; use hmb and autoblock for engagement if available
-        send 1
-        sleep 250
-
         ; use e dash
         send e
         sleep 50
@@ -113,7 +105,17 @@ class Combat
         send 2
         sleep 750
 
+        ; double knockdown
+        send z
+        sleep 500
+        send 3
+        sleep 500
+
         ; make sure to start with spirit vortex
+        send {tab}
+        sleep 350
+
+        ; go into flock stance
         send v
         sleep 150
     }
