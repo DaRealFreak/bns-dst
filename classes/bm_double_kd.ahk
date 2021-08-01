@@ -16,6 +16,11 @@ class Timings
         return 0.3
     }
 
+    MiniBossKnockback()
+    {
+        return 4.5
+    }
+
     ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
     BossOnePhaseJump()
     {

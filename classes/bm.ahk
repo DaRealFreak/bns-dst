@@ -16,6 +16,11 @@ class Timings
         return 0.3
     }
 
+    MiniBossKnockback()
+    {
+        return 2.0
+    }
+
     ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
     BossOnePhaseJump()
     {
@@ -47,12 +52,6 @@ class Combat
     ; mini boss can be tanked on range, so not all classes have to approach it
     ApproachMiniBoss()
     {
-        ; use hmb for the 3 hit knockback (+ double swipe on lower dps)
-        send 1
-        sleep 500
-        send f
-        sleep 250
-
         ; enter flock stance
         send {tab}
         sleep 350
@@ -82,12 +81,32 @@ class Combat
     ; bm can cover the 3 hit knockback with hmb already, bubble iframe would be perfect, non bubble iframe can be forced with full duration with sleep
     IframeMiniBoss()
     {
-
+        send 1
+        sleep 150
+        send 1
+        sleep 150
+        send 1
+        sleep 150
+        send f
+        sleep 250
     }
 
     ; if you can unroot or want to cleanse bleeding stacks from mini boss you can do so here
     CleanseMiniBossRoot()
     {
+        ; possible gcd from slices
+        sleep 500
+
+        ; get out of flock stance to keep autoblock for b1
+        send y
+        sleep 500
+
+        ; use cyclone to remove root so move timings are correct
+        send 1
+        sleep 350
+
+        send y
+        sleep 450
     }
 
     ; prestacking function for bosses
