@@ -41,7 +41,7 @@ class UserInterface
     ; any skill which requires a target and is not used during combat during it's unavailable phase so we know we don't have a target anymore (target hopefully dead)
     IsTargetSkillUnavailable()
     {
-        return Utility.GetColor(934,894) == "0x252525"
+        return Utility.GetColor(1034,894) == "0x2A2A2A"
     }
 
     ; any position on the loot icon
@@ -65,13 +65,20 @@ class UserInterface
     ; some of the filled out bar in the loading screen on the bottom of the screen
     IsInLoadingScreen()
     {
-        return Utility.GetColor(254,1060) == "0x0077FF"
+        return Utility.GetColor(10,1061) == "0x0066FF"
     }
 
     ; check for ss availability for faster entry/exit
     IsSSAvailable()
     {
         return Utility.GetColor(682,961) == "0x875049"
+    }
+
+    ; check if sprint is visible (green bar value > 100 in my case since it's slightly transparent)
+    IsSprintVisible()
+    {
+        Utility.GetColor(925,816, r, g)
+        return g > 100
     }
 
     ; check for talisman cooldown border, basically only needed if you have to wait for your long soul
