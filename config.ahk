@@ -41,7 +41,7 @@ class Configuration
     ; after how many runs should we repair our weapon
     UseRepairToolsAfterRunCount()
     {
-        return 7
+        return 8
     }
 
     ; hotkey for activating cheat engine/speed hack
@@ -65,6 +65,14 @@ class Configuration
     ; depending on the kill time of the mini boss and stuck in combat state option to increase/decrease the time running towards the platform of boss one
     RunTimeToBossOne()
     {
-        return 12
+        return 16
+    }
+
+    ; shortcut for shadowplay clip in case we want to debug how we got stuck or got to this point
+    ClipShadowPlay()
+    {
+        send {alt down}{f10 down}
+        sleep 1000
+        send {alt up}{f10 up}
     }
 }
