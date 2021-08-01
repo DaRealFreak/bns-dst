@@ -34,6 +34,9 @@ class DreamSongTheater
 
         ; get out of possible combat
         sleep 10 * 1000
+
+        ; use repair tools in case we somehow made a mistake with it
+        DreamSongTheater.RepairWeapon()
     }
 
     ; function we can call when we expect a loading screen and want to wait until the loading screen is over
@@ -91,10 +94,14 @@ class DreamSongTheater
         start := A_TickCount
         ; walk backwards until we're in the loading screen
         while (!UserInterface.IsInLoadingScreen()) {
-            ; we took more than 10 seconds to escape the dungeon, escape was most likely on cooldown
-            if (A_TickCount > start + 10*1000) {
+            ; we took more than 20 seconds to escape the dungeon, escape was most likely on cooldown
+            if (A_TickCount > start + 20*1000) {
                 ; send y to make sure the cd message disappeared
                 send y
+
+                ; save clip for debugging purposes
+                Configuration.ClipShadowPlay()
+
                 ; sleep 10 minutes before trying again
                 sleep 10*60*1000
                 DreamSongTheater.EscapeDungeon()
@@ -191,8 +198,8 @@ class DreamSongTheater
                 break
             }
 
-            ; start including an iframe 4.5 seconds into the fight to iframe the 3 hit knockback
-            if (A_TickCount > start + 4.5 * 1000) {
+            ; start including an iframe into the fight to iframe the 3 hit knockback
+            if (A_TickCount > start + Timings.MiniBossKnockback() * 1000 && A_TickCount < start + (Timings.MiniBossKnockback() + 1) * 1000) {
                 Combat.IframeMiniBoss()
             }
 
@@ -230,19 +237,33 @@ class DreamSongTheater
         send {w down}
         send {ShiftDown}
         Configuration.ActivateCheatEngine()
+        ; default run time to the boss
         sleep Configuration.RunTimeToBossOne() * 1000 / Configuration.CheatEngineSpeed()
         Configuration.DeactivateCheatEngine()
 
-        ; in case we didn't get out of combat yet
-        sleep 4 * 1000
-        send {ShiftUp}
-        send {w up}
+        ; in case we didn't get out of combat yet wait until sprint if visible
+        while (!UserInterface.IsSprintVisible()) {
+            if (UserInterface.IsReviveVisible()) {
+                log.addLogEntry("$time: died while moving to first boss, most likely got knocked on mini boss, reentering dungeon")
+                ; quit walking
+                send {ShiftUp}
+                send {w up}
+                ; revive
+                send 4
+                ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
+                sleep 7 * 1000
 
-        ; jump on the platform
-        send {w down}
+                ; exit dungeon by walking backwards (same as entering the dungeon)
+                DreamSongTheater.EnterDungeon(false)
+                ; go back into the dungeon
+                return DreamSongTheater.EnterDungeon()
+            }
+
+            sleep 15
+        }
+
+        ; wait until we're running before jumping on the platform
         send {ShiftDown}
-
-        ; wait until we're running before jumping
         sleep 0.5 * 1000
         send {space}
 
@@ -481,8 +502,11 @@ class DreamSongTheater
     {
         log.addLogEntry("$time: repairing weapon")
 
-        Configuration.UseRepairTools()
-        sleep 5.1 * 1000
+        start := A_TickCount
+        while (A_TickCount < start + 5.5*1000) {
+            Configuration.UseRepairTools()
+            sleep 5
+        }
     }
 
     ; exit the dungeon from our loot location
