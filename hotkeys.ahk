@@ -20,6 +20,10 @@ Numpad0::
     global log := new LogClass("dst_bot")
     log.initalizeNewLogFile(-1)
     log.addLogEntry("$time: starting dst")
+
+    ; safety initial repair before starting the runs in case we forget it
+    DreamSongTheater.RepairWeapon()
+
     loop {
         if (!DreamSongTheater.EnterDungeon()) {
             break
