@@ -23,7 +23,7 @@ class UserInterface
     ; whenever you want to refresh your buff food (basically one of the last pixels which will become darker)
     IsBuffFoodIconVisible()
     {
-        return Utility.GetColor(21,5) == "0x603825"
+        return Utility.GetColor(21,5) == "0x4C3747"
     }
 
     ; any position of the revive skill

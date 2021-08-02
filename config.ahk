@@ -23,13 +23,13 @@ class Configuration
     ; should the character even use buff food
     ShouldUseBuffFood()
     {
-        return false
+        return true
     }
 
-    ; hotkey where the buff food is placed, leave function empty if you don't want to take any buff food
+    ; hotkey where the buff food is placed
     UseBuffFood()
     {
-        send 5
+        send 6
     }
 
     ; hotkey where the field repair hammers are placed
@@ -41,7 +41,7 @@ class Configuration
     ; after how many runs should we repair our weapon
     UseRepairToolsAfterRunCount()
     {
-        return 8
+        return 50
     }
 
     ; hotkey for activating cheat engine/speed hack
