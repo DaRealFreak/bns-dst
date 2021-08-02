@@ -488,6 +488,11 @@ class DreamSongTheater
 
         ; repair weapon after the defined amount of runs
         if (mod(this.runCount, Configuration.UseRepairToolsAfterRunCount()) == 0) {
+            ; walk a tiny bit to get rid of the lootbox knee animation in case the inventory was full
+            send {w down}
+            sleep 0.3*1000
+            send {w up}
+
             DreamSongTheater.RepairWeapon()
         }
 
