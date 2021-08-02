@@ -14,6 +14,11 @@ class Timings
         return 0.4
     }
 
+    MiniBossKnockback()
+    {
+        return 4.5
+    }
+
     BossOnePhaseJump()
     {
         ; we are in godmode, so we don't care about the jump
