@@ -59,13 +59,13 @@ class Configuration
     ; the speed the cheat engine is set to, so we can calculate how long the character has to walk
     CheatEngineSpeed()
     {
-        return 3/1
+        return 3.0
     }
 
     ; depending on the kill time of the mini boss and stuck in combat state option to increase/decrease the time running towards the platform of boss one
     RunTimeToBossOne()
     {
-        return 16
+        return 17
     }
 
     ; shortcut for shadowplay clip in case we want to debug how we got stuck or got to this point
