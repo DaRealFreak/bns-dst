@@ -13,7 +13,7 @@ class Timings
     ; time to reach loot, only really needed for range classes who have no approach skill and could be 
     WalkToLoot()
     {
-        return 0.3
+        return 0.5
     }
 
     MiniBossKnockback()
