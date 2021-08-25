@@ -94,8 +94,8 @@ class DreamSongTheater
         start := A_TickCount
         ; walk backwards until we're in the loading screen
         while (!UserInterface.IsInLoadingScreen()) {
-            ; we took more than 20 seconds to escape the dungeon, escape was most likely on cooldown
-            if (A_TickCount > start + 20*1000) {
+            ; we took more than 5 minutes (64 bit client can have random freezes in loading screen after many hours) to escape the dungeon, escape was most likely on cooldown
+            if (A_TickCount > start + 5*60*1000) {
                 ; send y to make sure the cd message disappeared
                 send y
 
@@ -172,6 +172,12 @@ class DreamSongTheater
         send {a down}
         sleep 8.05 * 1000 / Configuration.CheatEngineSpeed()
         send {a up}
+
+        ; slightly move in front again since sometimes the mini boss had no target
+        send {w down}
+        sleep 1.5 * 1000 / Configuration.CheatEngineSpeed()
+        send {w up}
+
         Configuration.DeactivateCheatEngine()
 
         ; let the character come to a stop
@@ -325,6 +331,7 @@ class DreamSongTheater
             ; if the target skill is greyed out boss 1 should be dead
             if (UserInterface.IsTargetSkillUnavailable()) {
                 log.addLogEntry("$time: target skill is greyed out, breaking combat")
+                sleep 50
                 break
             }
 
@@ -556,6 +563,10 @@ class DreamSongTheater
             ; no idea when this normally happens
             if (A_TickCount > start + 20 * 1000) {
                 log.addLogEntry("$time: exiting dungeon took longer than expected, escaping")
+
+                ; record shadowplay since this shouldn't happen usually
+                Configuration.ClipShadowPlay()
+
                 ; quit walking
                 send {w up}
                 send {a up}
