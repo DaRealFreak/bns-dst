@@ -121,13 +121,10 @@ class Combat
         send {tab}
         sleep 350
 
-        ; use hmb and autoblock for engagement if available
-        send 1
-        sleep 450
-
         ; use e dash
         send e
-        sleep 50
+        sleep 250
+
         ; cancel it with the target approach (we keep the iframe duration from the e dash for our 2 approach)
         send 2
         sleep 750
