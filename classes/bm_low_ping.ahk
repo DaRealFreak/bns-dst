@@ -13,12 +13,12 @@ class Timings
     ; time to reach loot, only really needed for range classes who have no approach skill and could be 
     WalkToLoot()
     {
-        return 0.3
+        return 0.5
     }
 
     MiniBossKnockback()
     {
-        return 4.5
+        return 2.0
     }
 
     ; timing of the boss 1 phase jump (changes depending on if you open with cc's)
@@ -31,7 +31,7 @@ class Timings
     BossTwoKnockdown()
     {
         ; if you start with double kd the knockdown will come after 8.5 seconds
-        return 8.5
+        return 9.5
     }
 
     BossTwoSpin()
@@ -57,7 +57,7 @@ class Combat
         sleep 500
         send f
         sleep 250
-
+        
         ; enter flock stance
         send {tab}
         sleep 350
@@ -87,12 +87,24 @@ class Combat
     ; bm can cover the 3 hit knockback with hmb already, bubble iframe would be perfect, non bubble iframe can be forced with full duration with sleep
     IframeMiniBoss()
     {
-
     }
 
     ; if you can unroot or want to cleanse bleeding stacks from mini boss you can do so here
     CleanseMiniBossRoot()
     {
+        ; possible gcd from slices
+        sleep 500
+
+        ; get out of flock stance to keep autoblock for b1
+        send y
+        sleep 500
+
+        ; use cyclone to remove root so move timings are correct
+        send 1
+        sleep 350
+
+        send y
+        sleep 450
     }
 
     ; prestacking function for bosses
@@ -103,24 +115,19 @@ class Combat
     ; both bosses can't be range tanked, approach them here
     ApproachBoss()
     {
+        ; go into flock stance
+        send {tab}
+        sleep 350
+
         ; use e dash
         send e
-        sleep 50
+        sleep 250
+
         ; cancel it with the target approach (we keep the iframe duration from the e dash for our 2 approach)
         send 2
         sleep 750
 
-        ; double knockdown
-        send z
-        sleep 500
-        send 3
-        sleep 500
-
         ; make sure to start with spirit vortex
-        send {tab}
-        sleep 350
-
-        ; go into flock stance
         send v
         sleep 150
     }
