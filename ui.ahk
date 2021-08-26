@@ -59,7 +59,9 @@ class UserInterface
     ; preferably the small sword on the left side of the boss healthbar, since the healthbar itself has slightly different colors sometimes
     IsEnemyHealthbarVisible()
     {
-        return Utility.GetColor(716,60) == "0xB59C5D"
+        ; locals and no locals cause differences between healthbar colors
+        color := Utility.GetColor(716,60)
+        return color == "0xB59C5D" || color == "0x645832"
     }
 
     ; some of the filled out bar in the loading screen on the bottom of the screen
