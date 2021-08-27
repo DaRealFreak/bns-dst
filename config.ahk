@@ -59,7 +59,7 @@ class Configuration
     ; the speed the cheat engine is set to, so we can calculate how long the character has to walk
     CheatEngineSpeed()
     {
-        return 3.0
+        return 4.0
     }
 
     ; depending on the kill time of the mini boss and stuck in combat state option to increase/decrease the time running towards the platform of boss one
