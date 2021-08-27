@@ -382,6 +382,21 @@ class DreamSongTheater
                 return DreamSongTheater.EnterDungeon()                
             }
 
+            ; probably died on first boss with leftover 4 from macro
+            if (A_TickCount > start + 60 * 1000) {
+                log.addLogEntry("$time: moving to second boss took longer than expected, probably died on first boss, escaping")
+                ; quit walking
+                send {ShiftUp}
+                send {w up}
+
+                DreamSongTheater.EscapeDungeon()
+
+                ; exit dungeon by walking backwards (same as entering the dungeon)
+                DreamSongTheater.EnterDungeon(false)
+                ; go back into the dungeon
+                return DreamSongTheater.EnterDungeon()
+            }
+
             sleep 5
         }
 
