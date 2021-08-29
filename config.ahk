@@ -32,6 +32,12 @@ class Configuration
         return false
     }
 
+    ; should use all accounts for running
+    UseMultiBoxing()
+    {
+        return true
+    }
+
     ; hotkey where the buff food is placed
     UseBuffFood()
     {

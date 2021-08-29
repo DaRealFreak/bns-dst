@@ -27,7 +27,7 @@ class Game
         return this.startingWindowHwid
     }
 
-    ; retrieve hwids of twink account windows (excluded main window hwid)
+    ; get hwids of twink account windows (excluded main window hwid) to switch f.e. windows for escaping
     GetOtherWindowHwids()
     {
         gameHwids := []
@@ -37,6 +37,24 @@ class Game
         {
             hwnd := winIds%A_Index%
             if (hwnd != this.startingWindowHwid) {
+                gameHwids.Push(hwnd)
+            }
+        }
+
+        return gameHwids
+    }
+
+    ; get all relevant window hwids to send inputs to
+    GetRelevantWindowHwids()
+    {
+        gameHwids := []
+        gameHwids.Push(Game.GetStartingWindowHwid())
+
+        if Configuration.UseMultiBoxing() {
+            twinkWindowHwids := Game.GetOtherWindowHwids()
+
+            for _, hwnd in twinkWindowHwids
+            {
                 gameHwids.Push(hwnd)
             }
         }
