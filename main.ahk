@@ -9,6 +9,59 @@ SetWinDelay, -1
 #Include %A_ScriptDir%\ui.ahk
 #Include %A_ScriptDir%\hotkeys.ahk
 
+class Game
+{
+    static startingWindowHwid := 0x0
+
+    ; set the current active window as starting window
+    SetStartingWindowHwid()
+    {
+        ; A = active window
+        WinGet, winId ,, A
+        this.startingWindowHwid := winId
+    }
+
+    ; retrieve the window hwid of the game when we started the script
+    GetStartingWindowHwid()
+    {
+        return this.startingWindowHwid
+    }
+
+    ; retrieve hwids of twink account windows (excluded main window hwid)
+    GetOtherWindowHwids()
+    {
+        gameHwids := []
+
+        WinGet, winIds, List , Blade & Soul
+        Loop, %winIds%
+        {
+            hwnd := winIds%A_Index%
+            if (hwnd != this.startingWindowHwid) {
+                gameHwids.Push(hwnd)
+            }
+        }
+
+        return gameHwids
+    }
+
+    ; small test function to test swapping to twink windows before swapping back to main window
+    TestWindowSwaps()
+    {
+        Game.SetStartingWindowHwid()
+        twinkWindowHwids := Game.GetOtherWindowHwids()
+
+        for index, hwnd in twinkWindowHwids
+        {
+            MsgBox % "index: " . index . " hwnd: " . hwnd
+            WinActivate, ahk_id %hwnd%
+        }
+
+        startingWindowHwid := Game.GetStartingWindowHwid()
+        WinActivate, ahk_id %startingWindowHwid%
+    }
+
+}
+
 class DreamSongTheater
 {
     static runCount := 0
