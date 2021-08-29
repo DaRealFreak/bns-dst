@@ -488,22 +488,40 @@ class DreamSongTheater
         send f
         sleep 500
 
-        lootLoop := 0
-        ; loot icon on f and we tried less than 10 times to loot the items
-        while (UserInterface.IsLootIconVisible() && lootLoop <= 10) {
-            ; after 3 items start dialogue again in case we skipped sth by accident/lag
-            if (mod(lootLoop, 3) == 0) {
-                send f
+        if (Configuration.PickupAllLoot()) {
+            lootLoop := 0
+            ; loot icon on f and we tried less than 10 times to loot the items
+            while (UserInterface.IsLootIconVisible() && lootLoop <= 6) {
+                ; after 3 items start dialogue again in case we skipped sth by accident/lag
+                if (mod(lootLoop, 3) == 0) {
+                    send f
+                    sleep 500
+                }
+
+                log.addLogEntry("$time: looting confirmation item")
+                send y
                 sleep 500
+                lootLoop += 1
             }
 
-            log.addLogEntry("$time: looting confirmation item")
-            send y
-            sleep 500
-            lootLoop += 1
-        }
+            log.addLogEntry("$time: stopped looting after confirmed item count: " lootLoop)
 
-        log.addLogEntry("$time: stopped looting after confirmed item count: " lootLoop)
+        } else {
+            while (UserInterface.IsLootIconVisible() && UserInterface.IsLootConfirmWindowOpen()) {
+                if (UserInterface.IsRareElementLoot()) {
+                    log.addLogEntry("$time: looting rare element")
+                    send y
+                    sleep 500
+
+                    ; rare element is always the last confirmable item, we can break the loop here
+                    break
+                } else {
+                    log.addLogEntry("$time: passing unwanted loot")
+                    send n
+                    sleep 500
+                }
+            }
+        }
 
         ; increase our run counter
         this.runCount += 1

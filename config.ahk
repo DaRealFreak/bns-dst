@@ -26,6 +26,12 @@ class Configuration
         return true
     }
 
+    ; pick up all loot including necklaces etc for the jewel powders or just rare elements
+    PickupAllLoot()
+    {
+        return false
+    }
+
     ; hotkey where the buff food is placed
     UseBuffFood()
     {

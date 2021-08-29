@@ -50,6 +50,18 @@ class UserInterface
         return Utility.GetColor(1177,693) == "0xD9C6B0"
     }
 
+    ; move loot confirmation icon to a fixed location (f.e. most top left corner) before checking the white of Y or N option
+    IsLootConfirmWindowOpen()
+    {
+        return Utility.GetColor(98,173) == "0xCECACE"
+    }
+
+    ; i want my rare elements
+    IsRareElementLoot()
+    {
+        return Utility.GetColor(167,112) == "0x191A19"
+    }
+
     ; any position on the exit portal
     IsExitPortalIconVisible()
     {
