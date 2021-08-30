@@ -487,6 +487,8 @@ class DreamSongTheater
         sleep 500
         send f
         sleep 500
+        send f
+        sleep 500
 
         if (Configuration.PickupAllLoot()) {
             lootLoop := 0
