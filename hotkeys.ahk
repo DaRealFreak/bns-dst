@@ -21,6 +21,9 @@ Numpad0::
     log.initalizeNewLogFile(-1)
     log.addLogEntry("$time: starting dst")
 
+    ; set starting hwid
+    Game.SetStartingWindowHwid()
+
     ; safety initial repair before starting the runs in case we forget it
     DreamSongTheater.RepairWeapon()
 

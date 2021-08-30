@@ -4,81 +4,11 @@ SetWinDelay, -1
 #Include %A_ScriptDir%\lib\utility.ahk
 #Include %A_ScriptDir%\lib\log.ahk
 
+#Include %A_ScriptDir%\game.ahk
 #Include %A_ScriptDir%\class.ahk
 #Include %A_ScriptDir%\config.ahk
 #Include %A_ScriptDir%\ui.ahk
 #Include %A_ScriptDir%\hotkeys.ahk
-
-class Game
-{
-    static startingWindowHwid := 0x0
-
-    ; set the current active window as starting window
-    SetStartingWindowHwid()
-    {
-        ; A = active window
-        WinGet, winId ,, A
-        this.startingWindowHwid := winId
-    }
-
-    ; retrieve the window hwid of the game when we started the script
-    GetStartingWindowHwid()
-    {
-        return this.startingWindowHwid
-    }
-
-    ; get hwids of twink account windows (excluded main window hwid) to switch f.e. windows for escaping
-    GetOtherWindowHwids()
-    {
-        gameHwids := []
-
-        WinGet, winIds, List , Blade & Soul
-        Loop, %winIds%
-        {
-            hwnd := winIds%A_Index%
-            if (hwnd != this.startingWindowHwid) {
-                gameHwids.Push(hwnd)
-            }
-        }
-
-        return gameHwids
-    }
-
-    ; get all relevant window hwids to send inputs to
-    GetRelevantWindowHwids()
-    {
-        gameHwids := []
-        gameHwids.Push(Game.GetStartingWindowHwid())
-
-        if Configuration.UseMultiBoxing() {
-            twinkWindowHwids := Game.GetOtherWindowHwids()
-
-            for _, hwnd in twinkWindowHwids
-            {
-                gameHwids.Push(hwnd)
-            }
-        }
-
-        return gameHwids
-    }
-
-    ; small test function to test swapping to twink windows before swapping back to main window
-    TestWindowSwaps()
-    {
-        Game.SetStartingWindowHwid()
-        twinkWindowHwids := Game.GetOtherWindowHwids()
-
-        for index, hwnd in twinkWindowHwids
-        {
-            MsgBox % "index: " . index . " hwnd: " . hwnd
-            WinActivate, ahk_id %hwnd%
-        }
-
-        startingWindowHwid := Game.GetStartingWindowHwid()
-        WinActivate, ahk_id %startingWindowHwid%
-    }
-
-}
 
 class DreamSongTheater
 {
@@ -93,7 +23,7 @@ class DreamSongTheater
         Configuration.DeactivateCheatEngine()
 
         ; open escape menu and wait half a second until it appeared
-        send {Esc}
+        Game.SendInput("{Esc}")
         sleep 0.5 * 1000
 
         ; click on escape
@@ -125,7 +55,7 @@ class DreamSongTheater
             sleep 5
         }
 
-        sleep 250
+        sleep 3250
     }
 
     ; simply check for the buff food and use 
@@ -156,10 +86,10 @@ class DreamSongTheater
         }
 
         if (Configuration.IsRunningOverCrossServer() && notAbusedModeKek) {
-            send {w down}
-            send {ShiftDown}
+            Game.SendInput("{w down}")
+            Game.SendInput("{Shift down}")
         } else {
-            send {s down}
+            Game.SendInput("{s down}")
         }
 
         start := A_TickCount
@@ -168,7 +98,7 @@ class DreamSongTheater
             ; we took more than 5 minutes (64 bit client can have random freezes in loading screen after many hours) to escape the dungeon, escape was most likely on cooldown
             if (A_TickCount > start + 5*60*1000) {
                 ; send y to make sure the cd message disappeared
-                send y
+                Game.SendInput("y")
 
                 ; save clip for debugging purposes
                 Configuration.ClipShadowPlay()
@@ -185,11 +115,11 @@ class DreamSongTheater
             if (UserInterface.IsReviveVisible()) {
                 log.addLogEntry("$time: died while entering dungeon, reviving and retrying")
                 ; quit walking
-                send {ShiftUp}
-                send {s up}
-                send {w up}
+                Game.SendInput("{Shift up}")
+                Game.SendInput("{s up}")
+                Game.SendInput("{w up}")
                 ; revive
-                send 4
+                Game.SendInput("4")
                 sleep 7 * 1000
 
                 return DreamSongTheater.EnterDungeon(notAbusedModeKek)
@@ -197,19 +127,19 @@ class DreamSongTheater
 
             ; if we're walking backwards in/out of the dugneon add ss skill to be faster than slow walking
             if ((!Configuration.IsRunningOverCrossServer() || !notAbusedModeKek) && UserInterface.IsSSAvailable()) {
-                send ss
+                Game.SendInput("ss")
                 sleep 5
-                send {s down}
+                Game.SendInput("{s down}")
             }
             sleep 5
         }
 
         ; we're in the loading screen, release the keys now
         if (Configuration.IsRunningOverCrossServer() && notAbusedModeKek) {
-            send {w up}
-            send {ShiftUp}
+            Game.SendInput("{w up}")
+            Game.SendInput("{Shift up}")
         } else {
-            send {s up}
+            Game.SendInput("{s up}")
         }
 
         ; wait until the loading screen is over
@@ -228,26 +158,26 @@ class DreamSongTheater
     {
         log.addLogEntry("$time: moving to first mini boss")
 
-        send {w down}
-        send {ShiftDown}
-
         ; speed it up and walk on the right height
         Configuration.ActivateCheatEngine()
+
+        Game.SendInput("{w down}")
+        Game.SendInput("{Shift down}")
         sleep 11.55 * 1000 / Configuration.CheatEngineSpeed()
 
         ; stop walking forwards
-        send {ShiftUp}
-        send {w up}
+        Game.SendInput("{Shift up}")
+        Game.SendInput("{w up}")
 
         ; move left to the mini boss
-        send {a down}
+        Game.SendInput("{a down}")
         sleep 8.05 * 1000 / Configuration.CheatEngineSpeed()
-        send {a up}
+        Game.SendInput("{a up}")
 
         ; slightly move in front again since sometimes the mini boss had no target
-        send {w down}
+        Game.SendInput("{w down}")
         sleep 1.5 * 1000 / Configuration.CheatEngineSpeed()
-        send {w up}
+        Game.SendInput("{w up}")
 
         Configuration.DeactivateCheatEngine()
 
@@ -311,8 +241,7 @@ class DreamSongTheater
         log.addLogEntry("$time: moving to first boss")
 
         ; walk forwards to the first boss, add time running against the wall in case we got knocked back a bit or were rooted
-        send {w down}
-        send {ShiftDown}
+        Game.SendInput("{w down}")
         Configuration.ActivateCheatEngine()
         ; default run time to the boss
         sleep Configuration.RunTimeToBossOne() * 1000 / Configuration.CheatEngineSpeed()
@@ -323,10 +252,10 @@ class DreamSongTheater
             if (UserInterface.IsReviveVisible()) {
                 log.addLogEntry("$time: died while moving to first boss, most likely got knocked on mini boss, reentering dungeon")
                 ; quit walking
-                send {ShiftUp}
-                send {w up}
+                Game.SendInput("{Shift up}")
+                Game.SendInput("{w up}")
                 ; revive
-                send 4
+                Game.SendInput("4")
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
                 sleep 7 * 1000
 
@@ -340,9 +269,9 @@ class DreamSongTheater
         }
 
         ; wait until we're running before jumping on the platform
-        send {ShiftDown}
-        sleep 0.5 * 1000
-        send {space}
+        Game.SendInput("{Shift down}")
+        sleep 1 * 1000
+        Game.SendInput("{space}")
 
         start := A_TickCount
         while (!UserInterface.IsEnemyHealthbarVisible())
@@ -351,8 +280,8 @@ class DreamSongTheater
             if (A_TickCount > start + 20 * 1000) {
                 log.addLogEntry("$time: moving to first boss took longer than expected, escaping")
                 ; quit walking
-                send {ShiftUp}
-                send {w up}
+                Game.SendInput("{Shift up}")
+                Game.SendInput("{w up}")
 
                 DreamSongTheater.EscapeDungeon()
 
@@ -366,10 +295,10 @@ class DreamSongTheater
             if (UserInterface.IsReviveVisible()) {
                 log.addLogEntry("$time: died while moving to first boss, mini boss probably not dead, reviving and starting again")
                 ; quit walking
-                send {ShiftUp}
-                send {w up}
+                Game.SendInput("{Shift up}")
+                Game.SendInput("{w up}")
                 ; revive
-                send 4
+                Game.SendInput("4")
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
                 sleep 7 * 1000
 
@@ -382,8 +311,8 @@ class DreamSongTheater
             sleep 5
         }
 
-        send {ShiftUp}
-        send {w up}
+        Game.SendInput("{Shift up}")
+        Game.SendInput("{w up}")
 
         ; onto fighting the first boss
         return DreamSongTheater.FightFirstBoss()
@@ -431,7 +360,7 @@ class DreamSongTheater
 
         ; portal will reset our sprint, so we just ignore it
         Configuration.ActivateCheatEngine()
-        send {w down}
+        Game.SendInput("{w down}")
 
         start := A_TickCount
         while (!UserInterface.IsEnemyHealthbarVisible())
@@ -440,11 +369,11 @@ class DreamSongTheater
             if (UserInterface.IsReviveVisible()) {
                 log.addLogEntry("$time: died while walking to second boss, probably died on first boss, reentering dungeon")
                 ; quit walking
-                send {w up}
+                Game.SendInput("{w up}")
                 Configuration.DeactivateCheatEngine()
 
                 ; revive and wait for the animation
-                send 4
+                Game.SendInput("4")
                 sleep 7 * 1000
 
                 ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
@@ -457,8 +386,8 @@ class DreamSongTheater
             if (A_TickCount > start + 60 * 1000) {
                 log.addLogEntry("$time: moving to second boss took longer than expected, probably died on first boss, escaping")
                 ; quit walking
-                send {ShiftUp}
-                send {w up}
+                Game.SendInput("{Shift up}")
+                Game.SendInput("{w up}")
 
                 DreamSongTheater.EscapeDungeon()
 
@@ -481,10 +410,10 @@ class DreamSongTheater
             }
 
             ; quit walking
-            send {w up}
+            Game.SendInput("{w up}")
             Configuration.DeactivateCheatEngine()
             ; revive
-            send 4
+            Game.SendInput("4")
             ; we're not sure if we died on mini boss or boss so better leave the dungeon and abandon this run
             sleep 7 * 1000
 
@@ -495,7 +424,7 @@ class DreamSongTheater
         }
 
         Configuration.DeactivateCheatEngine()
-        send {w up}
+        Game.SendInput("{w up}")
         sleep 5
 
         return DreamSongTheater.FightSecondBoss()
@@ -547,9 +476,9 @@ class DreamSongTheater
         log.addLogEntry("$time: looting boss")
 
         ; walk a bit forward since loot can be out of reach
-        send {w down}
+        Game.SendInput("{w down}")
         sleep Timings.WalkToLoot() * 1000
-        send {w up}
+        Game.SendInput("{w up}")
         sleep 150
 
         ; pick items up and start confirmation dialogue
@@ -600,9 +529,9 @@ class DreamSongTheater
         ; repair weapon after the defined amount of runs
         if (mod(this.runCount, Configuration.UseRepairToolsAfterRunCount()) == 0) {
             ; walk a tiny bit to get rid of the lootbox knee animation in case the inventory was full
-            send {w down}
+            Game.SendInput("{w down}")
             sleep 0.3*1000
-            send {w up}
+            Game.SendInput("{w up}")
 
             DreamSongTheater.RepairWeapon()
         }
@@ -633,7 +562,7 @@ class DreamSongTheater
         ; safety deactivation of cheat engine
         Configuration.DeactivateCheatEngine()
 
-        send {w down}
+        Game.SendInput("{w down}")
 
         start := A_TickCount
         while (true) {
@@ -642,10 +571,10 @@ class DreamSongTheater
             if (UserInterface.IsReviveVisible()) {
                 log.addLogEntry("$time: died on second boss, retrying second boss")
                 ; quit walking
-                send {w up}
-                send {a up}
+                Game.SendInput("{w up}")
+                Game.SendInput("{a up}")
                 ; revive and waaait
-                send 4
+                Game.SendInput("4")
 
                 ; since we don't wait for talisman for 2nd boss we wait for long/short soul
                 if (Configuration.WaitForLongSoul()) {
@@ -672,8 +601,8 @@ class DreamSongTheater
                 Configuration.ClipShadowPlay()
 
                 ; quit walking
-                send {w up}
-                send {a up}
+                Game.SendInput("{w up}")
+                Game.SendInput("{a up}")
 
                 DreamSongTheater.EscapeDungeon()
 
@@ -683,16 +612,16 @@ class DreamSongTheater
             sleep 5
         }
 
-        send {w up}
-        send {a up}
+        Game.SendInput("{w up}")
+        Game.SendInput("{a up}")
         sleep 250
 
         ; use the exit portal and spam f in case we have no auto dynamic quests
         Configuration.ActivateCheatEngine()
         while (!UserInterface.IsInLoadingScreen()) {
-            send f
+            Game.SendInput("f")
             sleep 5
-            send y
+            Game.SendInput("y")
             sleep 5
             ; sleep 2.1 seconds in case there is any skill on f which is overwriting the exit portal
             sleep 2.1 * 1000 / Configuration.CheatEngineSpeed()

@@ -53,41 +53,41 @@ class Combat
     ApproachMiniBoss()
     {
         ; enter flock stance
-        send {tab}
+        Game.SendInput("{tab}")
         sleep 350
 
         ; approach the boss
-        send 2
+        Game.SendInput("2")
         sleep 350
 
         ; make sure to start with spirit vortex
-        send v
+        Game.SendInput("v")
         sleep 150
     }
 
     ; really simple auto combat, just spam keys, you can also add more complex checks if you ever want to, most of the times this is enough
     AutoCombat()
     {
-        send r
+        Game.SendInput("r")
         sleep 5
-        send t
+        Game.SendInput("t")
         sleep 5
-        send 4
+        Game.SendInput("4")
         sleep 5
-        send v
+        Game.SendInput("v")
         sleep 5
     }
 
     ; bm can cover the 3 hit knockback with hmb already, bubble iframe would be perfect, non bubble iframe can be forced with full duration with sleep
     IframeMiniBoss()
     {
-        send 1
+        Game.SendInput("1")
         sleep 150
-        send 1
+        Game.SendInput("1")
         sleep 150
-        send 1
+        Game.SendInput("1")
         sleep 150
-        send f
+        Game.SendInput("f")
         sleep 250
     }
 
@@ -98,14 +98,14 @@ class Combat
         sleep 500
 
         ; get out of flock stance to keep autoblock for b1
-        send y
+        Game.SendInput("y")
         sleep 500
 
         ; use cyclone to remove root so move timings are correct
-        send 1
+        Game.SendInput("1")
         sleep 350
 
-        send y
+        Game.SendInput("y")
         sleep 450
     }
 
@@ -118,19 +118,19 @@ class Combat
     ApproachBoss()
     {
         ; go into flock stance
-        send {tab}
+        Game.SendInput("{tab}")
         sleep 350
 
         ; use e dash
-        send e
+        Game.SendInput("e")
         sleep 250
 
         ; cancel it with the target approach (we keep the iframe duration from the e dash for our 2 approach)
-        send 2
+        Game.SendInput("2")
         sleep 750
 
         ; make sure to start with spirit vortex
-        send v
+        Game.SendInput("v")
         sleep 150
     }
 
@@ -138,39 +138,39 @@ class Combat
     DpsSkills()
     {
         ; starstrike
-        send {tab}
+        Game.SendInput("{tab}")
         sleep 5
 
         ; my talisman is bound to 9
-        send 9
+        Game.SendInput("9")
         sleep 5
     }
 
     ; iframe you want to use for phase jump/knockdown attack of boss 1 and boss 2, preferred bubble iframe, else add a sleep duration
     Iframe()
     {
-        send c
+        Game.SendInput("c")
     }
 
     ; block for second boss spin attack if you see it, classes aside from bm will need a sleep duration, bm just triggers autoblock
     Block()
     {
-        send 1
+        Game.SendInput("1")
     }
 
     ; whatever you want to do at the end of a fight, I use it to hmb for additional movement speed
     EndFight()
     {
         ; get out of flock stance
-        send y
+        Game.SendInput("y")
         sleep 500
 
         ; block
-        send 1
+        Game.SendInput("1")
         sleep 500
 
         ; hmb
-        send f
+        Game.SendInput("f")
         sleep 5
     }
 }
