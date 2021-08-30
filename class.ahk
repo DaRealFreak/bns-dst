@@ -2,4 +2,4 @@
 SendMode Input
 SetWorkingDir, %A_ScriptDir%
 
-#Include %A_ScriptDir%\classes\bm_low_ping.ahk
+#Include %A_ScriptDir%\classes\bm_high_ping.ahk
