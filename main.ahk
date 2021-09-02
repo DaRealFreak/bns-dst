@@ -75,6 +75,12 @@ class DreamSongTheater
         }
     }
 
+    ; stops to spam dpsSkills() after x amount of seconds to prevent using them after boss death
+    StopSkillCastAfter(fighttime := 99)
+    {   
+        return fighttime
+    }
+
     ; enter the dungeon either by walking straigt into it or walking backwards and using ss
     ; can also be abused as exit dungeon function when the script got stuck
     EnterDungeon(notAbusedModeKek := true)
@@ -325,6 +331,7 @@ class DreamSongTheater
 
         Combat.Prestack()
         Combat.ApproachBoss()
+        Combat.StartRotation()
 
         start := A_TickCount
         while (A_TickCount < start + 18 * 1000) {
@@ -335,8 +342,11 @@ class DreamSongTheater
                 break
             }
 
-            ; skills you don't want to waste on the mini boss but want to use on the real boss
-            Combat.DpsSkills()
+            ; stop using the dps skills after 10 seconds. Remove the paramter if you don't need this functionallity.
+            if (A_TickCount < start + DreamSongTheater.StopSkillCastAfter(10) * 1000) {
+                ; skills you don't want to waste on the mini boss but want to use on the real boss
+                Combat.DpsSkills()
+            } 
 
             ; start including iframes for phase jump
             if (A_TickCount > start + Timings.BossOnePhaseJump() * 1000 && A_TickCount < start + (Timings.BossOnePhaseJump() + 1.5) * 1000) {
@@ -437,6 +447,7 @@ class DreamSongTheater
 
         Combat.Prestack()
         Combat.ApproachBoss()
+        Combat.StartRotation()
 
         start := A_TickCount
         while (A_TickCount < start + 20 * 1000) {
@@ -446,8 +457,11 @@ class DreamSongTheater
                 break
             }
 
-            ; skills you don't want to waste on the mini boss but want to use on the real boss
-            Combat.DpsSkills()
+            ; stop using the dps skills after 14 seconds. Remove the paramter if you don't need this functionallity.
+            if (A_TickCount < start + DreamSongTheater.StopSkillCastAfter(14) * 1000) {
+                ; skills you don't want to waste on the mini boss but want to use on the real boss
+                Combat.DpsSkills()
+            }
 
             ; start including iframes for rotation knockdown
             if (A_TickCount > start + Timings.BossTwoKnockdown() * 1000 && A_TickCount < start + (Timings.BossTwoKnockdown() + 1.5) * 1000) {
